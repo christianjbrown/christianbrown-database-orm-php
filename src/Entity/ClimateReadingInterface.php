@@ -22,6 +22,8 @@ interface ClimateReadingInterface
 
     public function setHumidity(?float $humidity): self;
 
+    public function setId(?int $id): self;
+
     public function setRecordedAt(?DateTimeImmutable $recordedAt): self;
 
     public function setTemperature(?float $temperature): self;

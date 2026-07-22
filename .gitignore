@@ -5,6 +5,8 @@
 .idea
 .idea/
 .local.env
+.phpstan.cache
+.phpstan.cache/
 .phpunit.cache
 .phpunit.cache/
 bin

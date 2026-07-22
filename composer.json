@@ -18,6 +18,7 @@
     },
     "require-dev": {
         "christianjbrown/php-code-quality-scripts": "dev-main",
+        "phpstan/phpstan": "^2.0",
         "phpunit/phpunit": "^13.0"
     },
     "autoload": {
@@ -45,6 +46,9 @@
         ],
         "test": [
             "clear && XDEBUG_MODE=coverage ./bin/phpunit -d memory_limit=512M && open ./.phpunit.cache/code-coverage-html/index.html"
+        ],
+        "stan": [
+            "clear && ./bin/phpstan analyse"
         ],
         "check-style": [
             "clear && ./bin/php-cs ./src ./tests"
