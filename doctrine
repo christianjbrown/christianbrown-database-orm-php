@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__.'/vendor/autoload.php';
+
+use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Tools\DsnParser;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Driver\AttributeDriver;
+use Doctrine\ORM\ORMSetup;
+use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
+
+$config = ORMSetup::createConfiguration();
+$config->enableNativeLazyObjects(true);
+$driver = new AttributeDriver([__DIR__.'/src/Entity']);
+$config->setMetadataDriverImpl($driver);
+
+$dsn = getenv('DSN');
+$dsnParser = new DsnParser();
+$params = $dsnParser->parse($dsn);
+$dbalConnection = DriverManager::getConnection($params, $config);
+$entityManager = new EntityManager($dbalConnection, $config);
+
+ConsoleRunner::run(new SingleManagerProvider($entityManager));
