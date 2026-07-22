@@ -25,41 +25,48 @@ abstract class AbstractClimateReading implements ClimateReadingInterface
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     private ?float $temperature = null;
 
-    public function getHumidity(): ?float
+    final public function getHumidity(): ?float
     {
         return $this->humidity;
     }
 
-    public function getId(): ?int
+    final public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getRecordedAt(): ?DateTimeImmutable
+    final public function getRecordedAt(): ?DateTimeImmutable
     {
         return $this->recordedAt;
     }
 
-    public function getTemperature(): ?float
+    final public function getTemperature(): ?float
     {
         return $this->temperature;
     }
 
-    public function setHumidity(?float $humidity): self
+    final public function setHumidity(?float $humidity): self
     {
         $this->humidity = $humidity;
 
         return $this;
     }
 
-    public function setRecordedAt(?DateTimeImmutable $recordedAt): self
+    final public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    final public function setRecordedAt(?DateTimeImmutable $recordedAt): self
     {
         $this->recordedAt = $recordedAt;
 
         return $this;
     }
 
-    public function setTemperature(?float $temperature): self
+    final public function setTemperature(?float $temperature): self
     {
         $this->temperature = $temperature;
 

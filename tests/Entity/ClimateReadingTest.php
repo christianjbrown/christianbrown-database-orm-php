@@ -16,18 +16,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(AbstractClimateReading::class)]
 final class ClimateReadingTest extends TestCase
 {
-    /**
-     * @return array<int, array{0: ClimateReadingInterface}>
-     */
-    public static function dataProvider(): array
-    {
-        return [
-            [new SmartThingsClimate()],
-            [new MetOfficeWeather()],
-        ];
-    }
-
-    #[DataProvider('dataProvider')]
+    #[DataProvider('provideCases')]
     public function test(ClimateReadingInterface $entity): void
     {
         self::assertNull($entity->getId());
@@ -36,13 +25,23 @@ final class ClimateReadingTest extends TestCase
         self::assertNull($entity->getHumidity());
 
         $recordedAt = new DateTimeImmutable('2026-07-22 14:00:00');
+        $entity->setId(7);
         $entity->setRecordedAt($recordedAt);
         $entity->setTemperature(20.5);
         $entity->setHumidity(48.25);
 
-        self::assertNull($entity->getId());
+        self::assertSame(7, $entity->getId());
         self::assertSame($recordedAt, $entity->getRecordedAt());
         self::assertSame(20.5, $entity->getTemperature());
         self::assertSame(48.25, $entity->getHumidity());
+    }
+
+    /**
+     * @return iterable<int, array{0: ClimateReadingInterface}>
+     */
+    public static function provideCases(): iterable
+    {
+        yield [new SmartThingsClimate()];
+        yield [new MetOfficeWeather()];
     }
 }

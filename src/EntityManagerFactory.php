@@ -22,7 +22,6 @@ final class EntityManagerFactory implements EntityManagerFactoryInterface
      * block) the HTTP response.
      */
     private const int CONNECT_TIMEOUT_SECONDS = 2;
-
     private string $dsn;
     private Configuration $entityConfig;
 
