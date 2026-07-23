@@ -39,7 +39,7 @@ final class ClimateHistoryReader implements ClimateHistoryReaderInterface
         }
 
         $rows = $this->queryRunner->fetchAll(
-            $this->buildSql($table, $resolution),
+            self::buildSql($table, $resolution),
             $start->format(self::DATETIME_FORMAT),
             $end->format(self::DATETIME_FORMAT)
         );
@@ -50,7 +50,7 @@ final class ClimateHistoryReader implements ClimateHistoryReaderInterface
         );
     }
 
-    private function buildSql(string $table, string $resolution): string
+    private static function buildSql(string $table, string $resolution): string
     {
         // Hourly adds the hour bucket; daily groups by date only. Buckets are UTC
         // (the stored value's own timezone), earliest first.
