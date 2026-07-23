@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'met_office_weather')]
-#[ORM\Index(name: 'idx_recorded_at', columns: ['recorded_at'])]
+#[ORM\Index(name: 'idx_recorded_at', columns: ['recorded_at', 'temperature', 'humidity'])]
 // A Doctrine entity is deliberately non-final (proxy/lazy hydration), so the
 // "abstract or final" rule is suppressed for this class only.
 // phpcs:disable SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal
