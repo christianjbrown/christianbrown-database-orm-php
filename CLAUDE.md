@@ -79,6 +79,9 @@ deliberately **no** `doctrine/migrations`.
   public constants go on the interface. No magic literals in method bodies.
 - **No constructor property promotion** — declare typed `private` properties and assign them in the
   constructor body. Class members (properties then methods) are ordered **alphabetically**.
+- **A method that does not use `$this` must be `static`** (called via `self::`) — a stateless helper
+  is static. Enforced for private methods by the shared `RequireStaticPrivateMethodRule` PHPStan rule
+  (via `config/phpstan.neon` from `php-code-quality-scripts`); interface/override methods stay instance.
 - Import functions/classes explicitly (`use PDO;`) and reference them unqualified.
 - Entities: attribute mapping only (`#[ORM\Column]`, `Types::*`), a `#[ORM\MappedSuperclass]` base
   holding the shared columns + accessors, thin concrete subclasses setting `#[ORM\Table]` /
