@@ -9,7 +9,7 @@ services.
 
 - **`src/Entity/`** — the entities, using PHP 8 attributes:
   - `RefreshToken` — the rotating OAuth token key-value row (`refresh_tokens`), used by
-    `php-gcp-function-smartthings-climate`.
+    `cloud-run-function-smartthings-climate`.
   - `SmartThingsClimate` (`smartthings_climate`) and `MetOfficeWeather` (`met_office_weather`) — the
     append-only climate history tables (`recorded_at`, `temperature`, `humidity`), written every time
     a request reaches the origin of each function. A future `historical-climate-data` function reads
@@ -24,13 +24,13 @@ services.
 
 Add a `dev-main` requirement plus a GitHub VCS `repositories` entry (this package is **not** on
 Packagist), and a `repositories` entry for its transitive private dependency
-`christianjbrown/php-key-value-store-lib`:
+`christianjbrown/key-value-store`:
 
 ```json
-"require": { "christianjbrown/php-christianbrown-database-orm": "dev-main" },
+"require": { "christianjbrown/christianbrown-database-orm": "dev-main" },
 "repositories": [
-    { "type": "github", "url": "git@github.com:christianjbrown/php-christianbrown-database-orm.git" },
-    { "type": "github", "url": "git@github.com:christianjbrown/php-key-value-store-lib.git" }
+    { "type": "github", "url": "git@github.com:christianjbrown/christianbrown-database-orm-php.git" },
+    { "type": "github", "url": "git@github.com:christianjbrown/key-value-store-php.git" }
 ]
 ```
 

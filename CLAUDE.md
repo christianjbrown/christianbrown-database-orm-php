@@ -12,12 +12,12 @@ Cloud Run functions that share the database (for cost). It is a **library, not a
 consumers `require` it and pass a DSN.
 
 It is consumed via a GitHub VCS `repositories` entry (it is **not** on Packagist) as a `dev-main`
-package, and it depends on the sibling `christianjbrown/php-key-value-store-lib` for the key-value
+package, and it depends on the sibling `christianjbrown/key-value-store` for the key-value
 mapped superclass that `RefreshToken` extends.
 
 - **`Entity\RefreshToken`** — the rotating OAuth token key-value row (`refresh_tokens`); extends
-  `AbstractDatabaseKeyValueStoreEntity` from `php-key-value-store-lib`. Used by
-  `php-gcp-function-smartthings-climate` (moved here from that repo).
+  `AbstractDatabaseKeyValueStoreEntity` from `key-value-store`. Used by
+  `cloud-run-function-smartthings-climate` (moved here from that repo).
 - **`Entity\SmartThingsClimate`** (`smartthings_climate`) and **`Entity\MetOfficeWeather`**
   (`met_office_weather`) — append-only climate-history rows (`recorded_at`, `temperature`, `humidity`),
   written every time a request reaches each function's origin. A future `historical-climate-data`
@@ -81,7 +81,7 @@ deliberately **no** `doctrine/migrations`.
   constructor body. Class members (properties then methods) are ordered **alphabetically**.
 - **A method that does not use `$this` must be `static`** (called via `self::`) — a stateless helper
   is static. Enforced for private methods by the shared `RequireStaticPrivateMethodRule` PHPStan rule
-  (via `config/phpstan.neon` from `php-code-quality-scripts`); interface/override methods stay instance.
+  (via `config/phpstan.neon` from `code-quality-scripts`); interface/override methods stay instance.
 - Import functions/classes explicitly (`use PDO;`) and reference them unqualified.
 - Entities: attribute mapping only (`#[ORM\Column]`, `Types::*`), a `#[ORM\MappedSuperclass]` base
   holding the shared columns + accessors, thin concrete subclasses setting `#[ORM\Table]` /
