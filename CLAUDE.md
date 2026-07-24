@@ -34,8 +34,9 @@ mapped superclass that `RefreshToken` extends.
 ## Commands
 
 Binaries install into `bin/` (Composer `bin-dir`), not `vendor/bin/`. Both `bin/` and `vendor/` are
-gitignored and Composer-installed, so run `composer install` first (it needs SSH / `COMPOSER_AUTH`
-access to the private sibling repos). Being a library, it does **not** commit `composer.lock`.
+gitignored and Composer-installed, so run `composer install` first (its sibling `christianjbrown/*`
+dependencies are public GitHub repos, fetched with no authentication). Being a library, it does
+**not** commit `composer.lock`.
 
 | Task | Command |
 | --- | --- |

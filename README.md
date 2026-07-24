@@ -22,15 +22,15 @@ services.
 
 ## Consuming it
 
-Add a `dev-main` requirement plus a GitHub VCS `repositories` entry (this package is **not** on
-Packagist), and a `repositories` entry for its transitive private dependency
-`christianjbrown/key-value-store`:
+This package isn't on Packagist, so add a `dev-main` requirement plus a GitHub VCS `repositories`
+entry pointing at it — and one for its transitive dependency `christianjbrown/key-value-store`. Both
+repositories are public, so Composer needs no authentication to fetch them:
 
 ```json
 "require": { "christianjbrown/christianbrown-database-orm": "dev-main" },
 "repositories": [
-    { "type": "github", "url": "git@github.com:christianjbrown/christianbrown-database-orm-php.git" },
-    { "type": "github", "url": "git@github.com:christianjbrown/key-value-store-php.git" }
+    { "type": "github", "url": "https://github.com/christianjbrown/christianbrown-database-orm-php.git" },
+    { "type": "github", "url": "https://github.com/christianjbrown/key-value-store-php.git" }
 ]
 ```
 
