@@ -1,5 +1,7 @@
 # christianbrown Database ORM
 
+[![CI](https://github.com/christianjbrown/christianbrown-database-orm-php/actions/workflows/ci.yml/badge.svg)](https://github.com/christianjbrown/christianbrown-database-orm-php/actions/workflows/ci.yml) [![License](https://img.shields.io/github/license/christianjbrown/christianbrown-database-orm-php)](https://github.com/christianjbrown/christianbrown-database-orm-php/blob/main/LICENSE) [![PHP](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fchristianjbrown%2Fchristianbrown-database-orm-php%2Fmain%2Fcomposer.json&query=%24.require.php&label=php&color=777BB4)](https://github.com/christianjbrown/christianbrown-database-orm-php/blob/main/composer.json)
+
 Shared Doctrine ORM plumbing for the personal `christianbrown` schema on the shared Cloud SQL (MySQL)
 instance. It is consumed by the christianbrown Google Cloud Run functions so the entity mapping, the
 `EntityManager` bootstrap, and the climate-write logic live in one place instead of being copied between
