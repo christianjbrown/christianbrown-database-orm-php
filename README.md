@@ -24,15 +24,15 @@ services.
 
 ## Consuming it
 
-This package isn't on Packagist, so add a `dev-main` requirement plus a GitHub VCS `repositories`
-entry pointing at it — and one for its transitive dependency `christianjbrown/key-value-store`. Both
-repositories are public, so Composer needs no authentication to fetch them:
+This package is deliberately not published on Packagist: it maps one private schema and is only meant
+for the christianbrown Cloud Run functions. Add a `dev-main` requirement plus a GitHub VCS `repositories`
+entry pointing at it. The repository is public, so Composer needs no authentication to fetch it, and its
+`christianjbrown/key-value-store` dependency comes from Packagist:
 
 ```json
 "require": { "christianjbrown/christianbrown-database-orm": "dev-main" },
 "repositories": [
-    { "type": "github", "url": "https://github.com/christianjbrown/christianbrown-database-orm-php.git" },
-    { "type": "github", "url": "https://github.com/christianjbrown/key-value-store-php.git" }
+    { "type": "github", "url": "https://github.com/christianjbrown/christianbrown-database-orm-php.git" }
 ]
 ```
 

@@ -50,8 +50,8 @@ dependencies are public GitHub repos, fetched with no authentication). Being a l
 | Dump additive schema SQL | `composer db-update-dry-run` |
 
 Always run `composer fix-style` first, then `composer check-style`, then `composer stan`, then
-`composer test` before finishing. CI (`.github/workflows/ci.yml`) runs the same three gates — style →
-PHPStan → PHPUnit-with-coverage — on push/PR to `main`, supplying private-repo credentials via the
+`composer test` before finishing. CI (`.github/workflows/ci.yml`) runs the same three gates (style,
+PHPStan, PHPUnit with a 100% coverage floor on every metric) on push/PR to `main`, supplying private-repo credentials via the
 `COMPOSER_AUTH` secret.
 
 ## Schema management
