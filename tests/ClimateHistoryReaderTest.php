@@ -5,15 +5,26 @@ declare(strict_types=1);
 namespace ChristianBrown\Database\Tests;
 
 use ChristianBrown\Database\ClimateHistoryReader;
+use ChristianBrown\Database\ClimateHistoryReaderFactory;
 use ChristianBrown\Database\ClimateHistoryReaderInterface;
 use ChristianBrown\Database\ClimateQueryRunnerInterface;
+use ChristianBrown\Database\ClimateRowNormaliser;
+use ChristianBrown\Database\ClimateTableNameValidator;
+use ChristianBrown\Database\DailyClimateQueryBuilder;
+use ChristianBrown\Database\HourlyClimateQueryBuilder;
 use DateTimeImmutable;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ClimateHistoryReader::class)]
+#[CoversClass(ClimateHistoryReaderFactory::class)]
+#[CoversClass(ClimateTableNameValidator::class)]
+#[CoversClass(DailyClimateQueryBuilder::class)]
+#[CoversClass(HourlyClimateQueryBuilder::class)]
+#[UsesClass(ClimateRowNormaliser::class)]
 final class ClimateHistoryReaderTest extends TestCase
 {
     /**
@@ -29,7 +40,7 @@ final class ClimateHistoryReaderTest extends TestCase
             ['bucket_date' => [], 'bucket_hour' => 'not-numeric', 'min_temperature' => null, 'max_temperature' => null, 'min_humidity' => null, 'max_humidity' => null],
         ]);
 
-        $reader = new ClimateHistoryReader($queryRunner);
+        $reader = (new ClimateHistoryReaderFactory())->create($queryRunner);
         $actual = $reader->read('smartthings_climate', ClimateHistoryReaderInterface::RESOLUTION_HOURLY, new DateTimeImmutable('2026-07-20'), new DateTimeImmutable('2026-07-21'));
 
         self::assertSame([
@@ -49,7 +60,7 @@ final class ClimateHistoryReaderTest extends TestCase
             ['bucket_date' => '2026-07-21', 'min_temperature' => null, 'max_temperature' => null, 'min_humidity' => '50', 'max_humidity' => '60'],
         ]);
 
-        $reader = new ClimateHistoryReader($queryRunner);
+        $reader = (new ClimateHistoryReaderFactory())->create($queryRunner);
         $actual = $reader->read('smartthings_climate', ClimateHistoryReaderInterface::RESOLUTION_DAILY, new DateTimeImmutable('2026-07-20'), new DateTimeImmutable('2026-07-22'));
 
         self::assertSame([
@@ -68,7 +79,7 @@ final class ClimateHistoryReaderTest extends TestCase
             ['bucket_date' => '2026-07-20', 'bucket_hour' => '14', 'min_temperature' => '20', 'max_temperature' => '22', 'min_humidity' => '45', 'max_humidity' => '48'],
         ]);
 
-        $reader = new ClimateHistoryReader($queryRunner);
+        $reader = (new ClimateHistoryReaderFactory())->create($queryRunner);
         $actual = $reader->read('met_office_weather', ClimateHistoryReaderInterface::RESOLUTION_HOURLY, new DateTimeImmutable('2026-07-20'), new DateTimeImmutable('2026-07-21'));
 
         self::assertSame([
@@ -81,7 +92,7 @@ final class ClimateHistoryReaderTest extends TestCase
      */
     public function testReadRejectsAnInvalidTableName(): void
     {
-        $reader = new ClimateHistoryReader(self::createStub(ClimateQueryRunnerInterface::class));
+        $reader = (new ClimateHistoryReaderFactory())->create(self::createStub(ClimateQueryRunnerInterface::class));
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid table name: not a table');
@@ -94,7 +105,7 @@ final class ClimateHistoryReaderTest extends TestCase
      */
     public function testReadRejectsAnUnknownResolution(): void
     {
-        $reader = new ClimateHistoryReader(self::createStub(ClimateQueryRunnerInterface::class));
+        $reader = (new ClimateHistoryReaderFactory())->create(self::createStub(ClimateQueryRunnerInterface::class));
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid resolution: weekly');
