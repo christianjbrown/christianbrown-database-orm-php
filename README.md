@@ -21,6 +21,10 @@ services.
 - **`src/ClimateMeasurementRecorder.php`** — the shared write: `persist()` + `flush()` a
   climate-reading entity. Callers wrap it in their own `try/catch` so a write failure never disturbs the
   HTTP response.
+- **`src/ClimateHistoryReader.php`** - per-day / per-hour min and max temperature and humidity over a
+  range. Build it with `ClimateHistoryReaderFactory::create(new DbalClimateQueryRunner($connection))`;
+  the reader itself takes a query runner, a table-name validator, a row normaliser and a map of query
+  builders keyed by resolution, so a new resolution is a new `ClimateQueryBuilderInterface` class.
 
 ## Consuming it
 
