@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^8.5",
-        "christianjbrown/key-value-store": "^1.0",
+        "christianjbrown/key-value-store": "^1.0 || ^2.0 || ^3.0",
         "doctrine/dbal": "^4.4.3",
         "doctrine/orm": "^3.6.7",
         "symfony/cache": "^8.0",
